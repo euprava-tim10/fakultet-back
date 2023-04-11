@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.borisavz</groupId>
-	<artifactId>reddit-clone-back</artifactId>
+	<artifactId>fakultet-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reddit-clone-back</name>
-	<description>Reddit Clone</description>
+	<name>fakultet-back</name>
+	<description>Fakultet Backend</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
