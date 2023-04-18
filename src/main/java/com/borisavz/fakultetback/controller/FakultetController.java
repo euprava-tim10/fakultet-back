@@ -3,6 +3,7 @@ package com.borisavz.fakultetback.controller;
 import com.borisavz.fakultetback.entity.Fakultet;
 import com.borisavz.fakultetback.entity.Konkurs;
 import com.borisavz.fakultetback.entity.Student;
+import com.borisavz.fakultetback.security.permission.IsAdmin;
 import com.borisavz.fakultetback.service.FakultetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,13 @@ public class FakultetController {
 
     @GetMapping("/{id}")
     public Fakultet getFakultet(@PathVariable long id) {
-        return null;
+        return fakultetService.getFakultet(id);
     }
 
     @GetMapping("/{id}/konkursi")
+    @IsAdmin
     public List<Konkurs> getFakultetKonkursi(@PathVariable long id) {
-        return null;
+        return fakultetService.getFakultetKonkursi(id);
     }
 
     @PostMapping("/{id}/konkursi")
@@ -37,7 +39,8 @@ public class FakultetController {
     }
 
     @GetMapping("/{id}/studenti")
+    @IsAdmin
     public List<Student> getFakultetStudenti(@PathVariable long id) {
-        return null;
+        return fakultetService.getFakultetStudenti(id);
     }
 }

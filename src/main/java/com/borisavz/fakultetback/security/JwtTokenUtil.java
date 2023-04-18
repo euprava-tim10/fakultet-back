@@ -27,9 +27,9 @@ public class JwtTokenUtil {
                 .getBody();
 
         return AuthUser.builder()
-                .id((Long) claims.get("id"))
+                //.id((Long) claims.get("id"))
                 .role((String) claims.get("role"))
-                .fakultetId((long) claims.getOrDefault("fakultetId", 0))
+                .fakultetId(((Number) claims.getOrDefault("fakultetId", 0)).longValue())
                 .build();
     }
 
