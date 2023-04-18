@@ -19,6 +19,7 @@ public class StatusStudija {
     private long id;
     private LocalDate datumUpisa;
     private LocalDate datumZavrsetka;
+    private float prosek;
 
     @ManyToOne
     private Smer smer;
