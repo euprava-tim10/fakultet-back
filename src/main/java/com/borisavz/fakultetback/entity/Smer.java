@@ -1,5 +1,6 @@
 package com.borisavz.fakultetback.entity;
 
+import com.borisavz.fakultetback.enums.NivoStudija;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,8 @@ public class Smer {
     private long id;
 
     private String naziv;
+
+    private NivoStudija nivoStudija;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Fakultet fakultet;

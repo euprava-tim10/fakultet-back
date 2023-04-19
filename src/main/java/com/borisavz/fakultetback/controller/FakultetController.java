@@ -2,6 +2,7 @@ package com.borisavz.fakultetback.controller;
 
 import com.borisavz.fakultetback.entity.Fakultet;
 import com.borisavz.fakultetback.entity.Konkurs;
+import com.borisavz.fakultetback.entity.Smer;
 import com.borisavz.fakultetback.entity.Student;
 import com.borisavz.fakultetback.security.permission.IsAdmin;
 import com.borisavz.fakultetback.service.FakultetService;
@@ -30,7 +31,7 @@ public class FakultetController {
 
     @PostMapping("/{id}/konkursi")
     public long postFakultetKonkursi(@PathVariable long id, @RequestBody Konkurs konkurs) {
-        return 0;
+        return fakultetService.raspisiKonkurs(id, konkurs);
     }
 
     @PostMapping("/{fakultetId}/konkursi/{konkursId}/okoncaj")
@@ -42,5 +43,10 @@ public class FakultetController {
     @IsAdmin
     public List<Student> getFakultetStudenti(@PathVariable long id) {
         return fakultetService.getFakultetStudenti(id);
+    }
+
+    @GetMapping("/{id}/smerovi")
+    public List<Smer> getFakultetSmerovi(@PathVariable long id) {
+        return fakultetService.getFakultetSmerovi(id);
     }
 }
