@@ -34,11 +34,6 @@ public class FakultetController {
         return fakultetService.raspisiKonkurs(id, konkurs);
     }
 
-    @PostMapping("/{fakultetId}/konkursi/{konkursId}/okoncaj")
-    public long okoncajKonkurs(@PathVariable long fakultetId, @PathVariable long konkursId, @RequestBody Konkurs konkurs) {
-        return 0;
-    }
-
     @GetMapping("/{id}/studenti")
     @IsAdmin
     public List<Student> getFakultetStudenti(@PathVariable long id) {

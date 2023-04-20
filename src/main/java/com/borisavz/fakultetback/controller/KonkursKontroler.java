@@ -1,8 +1,8 @@
 package com.borisavz.fakultetback.controller;
 
 import com.borisavz.fakultetback.entity.Konkurs;
-import com.borisavz.fakultetback.entity.PrijavaKonkurs;
 import com.borisavz.fakultetback.entity.Smer;
+import com.borisavz.fakultetback.security.permission.IsAdmin;
 import com.borisavz.fakultetback.security.permission.IsStudent;
 import com.borisavz.fakultetback.service.KonkursService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +31,19 @@ public class KonkursKontroler {
         return konkursService.getDozvoljeniSmerovi(id);
     }
 
-    @PostMapping("/{id}/prijave")
-    @IsStudent
-    public long postPrijava(
-            @PathVariable long id,
-            @RequestBody PrijavaKonkurs prijavaKonkurs
+    @PutMapping("/{id}/okoncaj_prijave")
+    @IsAdmin
+    public void okoncajPrijave(
+            @PathVariable long id
     ) {
-        return konkursService.kreirajPrijavu(id, prijavaKonkurs);
+        konkursService.okoncajPrijave(id);
+    }
+
+    @PutMapping("/{id}/okoncaj_konkurs")
+    @IsAdmin
+    public void okoncajKonkurs(
+            @PathVariable long id
+    ) {
+        konkursService.okoncajKonkurs(id);
     }
 }

@@ -3,10 +3,7 @@ package com.borisavz.fakultetback.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
@@ -23,4 +20,7 @@ public class StatusStudija {
 
     @ManyToOne
     private Smer smer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Student student;
 }

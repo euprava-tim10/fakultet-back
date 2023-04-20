@@ -1,5 +1,5 @@
 package com.borisavz.fakultetback.enums;
 
 public enum StatusKonkursa {
-    AKTIVAN, ZATVOREN
+    AKTIVAN, ZATVORENE_PRIJAVE, ZATVOREN
 }

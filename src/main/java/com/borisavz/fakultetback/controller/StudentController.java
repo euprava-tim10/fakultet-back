@@ -5,9 +5,12 @@ import com.borisavz.fakultetback.entity.PrijavaKonkurs;
 import com.borisavz.fakultetback.entity.StatusStudija;
 import com.borisavz.fakultetback.entity.Student;
 import com.borisavz.fakultetback.security.permission.IsAdmin;
+import com.borisavz.fakultetback.security.permission.IsStudent;
 import com.borisavz.fakultetback.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/studenti")
@@ -32,17 +35,18 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/prijave")
-    public PrijavaKonkurs getStudentovePrijaveKonkurs(@PathVariable long id) {
-        return null;
+    @IsStudent
+    public List<PrijavaKonkurs> getStudentovePrijaveKonkurs(@PathVariable long id) {
+        return studentService.getStudentovePrijaveKonkurs(id);
     }
 
-    @GetMapping("/{studentId}/prijave/{prijavaId}/prihvati")
+    @PutMapping("/{studentId}/prijave/{prijavaId}/prihvati")
     public void prihvatiPrijavu(@PathVariable long studentId, @PathVariable long prijavaId) {
-
+        studentService.prihvatiPrijavu(studentId, prijavaId);
     }
 
-    @GetMapping("/{studentId}/prijave/{prijavaId}/odbij")
+    @PutMapping("/{studentId}/prijave/{prijavaId}/odbij")
     public void odbijPrijavu(@PathVariable long studentId, @PathVariable long prijavaId) {
-
+        studentService.odbijPrijavu(studentId, prijavaId);
     }
 }

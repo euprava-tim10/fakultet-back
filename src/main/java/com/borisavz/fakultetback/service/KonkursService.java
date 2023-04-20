@@ -2,6 +2,7 @@ package com.borisavz.fakultetback.service;
 
 import com.borisavz.fakultetback.entity.*;
 import com.borisavz.fakultetback.enums.NivoStudija;
+import com.borisavz.fakultetback.enums.StatusKonkursa;
 import com.borisavz.fakultetback.enums.StatusPrijave;
 import com.borisavz.fakultetback.exception.core.NotAllowedException;
 import com.borisavz.fakultetback.repository.KonkursRepository;
@@ -61,6 +62,7 @@ public class KonkursService {
     }
 
     public long kreirajPrijavu(long konkursId, PrijavaKonkurs prijavaKonkurs) {
+        //TODO: ne sme dve prijave na isti konkurs!
         Student student = studentRepository.getById(authUser().getId());
         Konkurs konkurs = konkursRepository.getById(konkursId);
 
@@ -112,5 +114,21 @@ public class KonkursService {
         }
 
         return statusStudijaMax;
+    }
+
+    public void okoncajPrijave(long konkursId) {
+        Konkurs konkurs = konkursRepository.getById(konkursId);
+
+        konkurs.setStatusKonkursa(StatusKonkursa.ZATVORENE_PRIJAVE);
+
+        konkursRepository.save(konkurs);
+    }
+
+    public void okoncajKonkurs(long konkursId) {
+        Konkurs konkurs = konkursRepository.getById(konkursId);
+
+        konkurs.setStatusKonkursa(StatusKonkursa.ZATVOREN);
+
+        konkursRepository.save(konkurs);
     }
 }
