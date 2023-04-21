@@ -36,6 +36,14 @@ public class KonkursService {
         return konkursRepository.getAktivniKonkursi();
     }
 
+    public Konkurs getKonkurs(long konkursId) {
+        return konkursRepository.getById(konkursId);
+    }
+
+    public List<PrijavaKonkurs> getKonkursPrijavePoSmeru(long konkursId, long smerId) {
+        return prijavaKonkursRepository.getPrijavePoSmeru(konkursId, smerId);
+    }
+
     public List<Smer> getDozvoljeniSmerovi(long konkursId) {
         Konkurs konkurs = konkursRepository.getById(konkursId);
         Student student = studentRepository.getById(authUser().getId());
