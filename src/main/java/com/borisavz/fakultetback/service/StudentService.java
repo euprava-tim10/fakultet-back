@@ -54,6 +54,7 @@ public class StudentService {
     }
 
     public void prihvatiPrijavu(@PathVariable long studentId, @PathVariable long prijavaId) {
+        Student student = studentRepository.getById(studentId);
         PrijavaKonkurs prijavaKonkurs = prijavaKonkursRepository.getById(prijavaId);
 
         if(!StatusPrijave.PRIMLJEN_UPIS.equals(prijavaKonkurs.getStatusPrijave()))
@@ -65,6 +66,7 @@ public class StudentService {
 
         statusStudija.setDatumUpisa(LocalDate.now());
         statusStudija.setSmer(prijavaKonkurs.getPrvaZelja());
+        statusStudija.setStudent(student);
 
         prijavaKonkursRepository.save(prijavaKonkurs);
         statusStudijaRepository.save(statusStudija);

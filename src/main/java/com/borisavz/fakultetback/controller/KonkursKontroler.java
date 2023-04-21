@@ -33,6 +33,15 @@ public class KonkursKontroler {
         return konkursService.getKonkurs(id);
     }
 
+    @PostMapping("/{id}/prijave")
+    @IsStudent
+    public long postPrijavaKonkurs(
+            @PathVariable long id,
+            @RequestBody PrijavaKonkurs prijavaKonkurs
+    ) {
+        return konkursService.kreirajPrijavu(id, prijavaKonkurs);
+    }
+
     @GetMapping("/{konkursId}/smerovi/{smerId}/prijave")
     @IsLoggedIn
     public List<PrijavaKonkurs> getKonkursPrijavePoSmeru(

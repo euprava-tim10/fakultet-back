@@ -12,12 +12,14 @@ import com.borisavz.fakultetback.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.borisavz.fakultetback.security.AuthHelper.authUser;
 
 @Service
+@Transactional
 public class KonkursService {
 
     @Autowired
@@ -130,6 +132,16 @@ public class KonkursService {
         konkurs.setStatusKonkursa(StatusKonkursa.ZATVORENE_PRIJAVE);
 
         konkursRepository.save(konkurs);
+
+        for(KvotaSmer kvotaSmer : konkurs.getKvote()) {
+            List<PrijavaKonkurs> topPrijave = prijavaKonkursRepository.getTopNPrijavePoSmeru(konkursId, kvotaSmer.getSmer().getId(), kvotaSmer.getKvota());
+
+            for(PrijavaKonkurs prijavaKonkurs : topPrijave) {
+                prijavaKonkurs.setStatusPrijave(StatusPrijave.PRIMLJEN_UPIS);
+
+                prijavaKonkursRepository.save(prijavaKonkurs);
+            }
+        }
     }
 
     public void okoncajKonkurs(long konkursId) {
