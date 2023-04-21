@@ -41,11 +41,13 @@ public class StudentController {
     }
 
     @PutMapping("/{studentId}/prijave/{prijavaId}/prihvati")
+    @IsStudent
     public void prihvatiPrijavu(@PathVariable long studentId, @PathVariable long prijavaId) {
         studentService.prihvatiPrijavu(studentId, prijavaId);
     }
 
     @PutMapping("/{studentId}/prijave/{prijavaId}/odbij")
+    @IsStudent
     public void odbijPrijavu(@PathVariable long studentId, @PathVariable long prijavaId) {
         studentService.odbijPrijavu(studentId, prijavaId);
     }
