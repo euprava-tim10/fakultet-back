@@ -145,7 +145,6 @@ public class KonkursService {
                 Obavestenje obavestenje = Obavestenje.builder()
                         .student(prijavaKonkurs.getStudent())
                         .datumKreiranja(new Date())
-                        //.tekst("Cestitamo na upisu! Jos uvek nije kasno da odustanete i sacuvate svoje mentalno zdravlje.")
                         .tekst("Izasli su rezultati konkursa!")
                         .link("")
                         .build();
