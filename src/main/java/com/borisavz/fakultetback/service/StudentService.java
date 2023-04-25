@@ -1,11 +1,13 @@
 package com.borisavz.fakultetback.service;
 
 import com.borisavz.fakultetback.dto.ZavrsiStudijeDTO;
+import com.borisavz.fakultetback.entity.Obavestenje;
 import com.borisavz.fakultetback.entity.PrijavaKonkurs;
 import com.borisavz.fakultetback.entity.StatusStudija;
 import com.borisavz.fakultetback.entity.Student;
 import com.borisavz.fakultetback.enums.StatusPrijave;
 import com.borisavz.fakultetback.exception.core.NotAllowedException;
+import com.borisavz.fakultetback.repository.ObavestenjeRepository;
 import com.borisavz.fakultetback.repository.PrijavaKonkursRepository;
 import com.borisavz.fakultetback.repository.StatusStudijaRepository;
 import com.borisavz.fakultetback.repository.StudentRepository;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static com.borisavz.fakultetback.security.AuthHelper.authUser;
@@ -31,6 +34,9 @@ public class StudentService {
 
     @Autowired
     private PrijavaKonkursRepository prijavaKonkursRepository;
+
+    @Autowired
+    private ObavestenjeRepository obavestenjeRepository;
 
     public Student getStudent(long id) {
         return studentRepository.getById(id);
@@ -67,6 +73,15 @@ public class StudentService {
         statusStudija.setDatumUpisa(LocalDate.now());
         statusStudija.setSmer(prijavaKonkurs.getPrvaZelja());
         statusStudija.setStudent(student);
+
+        Obavestenje obavestenje = Obavestenje.builder()
+                .student(prijavaKonkurs.getStudent())
+                .datumKreiranja(new Date())
+                .tekst("Cestitamo na upisu! Jos uvek nije kasno da odustanete i sacuvate svoje mentalno zdravlje.")
+                .link("")
+                .build();
+
+        obavestenjeRepository.save(obavestenje);
 
         prijavaKonkursRepository.save(prijavaKonkurs);
         statusStudijaRepository.save(statusStudija);

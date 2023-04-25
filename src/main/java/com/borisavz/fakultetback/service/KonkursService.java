@@ -5,15 +5,13 @@ import com.borisavz.fakultetback.enums.NivoStudija;
 import com.borisavz.fakultetback.enums.StatusKonkursa;
 import com.borisavz.fakultetback.enums.StatusPrijave;
 import com.borisavz.fakultetback.exception.core.NotAllowedException;
-import com.borisavz.fakultetback.repository.KonkursRepository;
-import com.borisavz.fakultetback.repository.PrijavaKonkursRepository;
-import com.borisavz.fakultetback.repository.SmerRepository;
-import com.borisavz.fakultetback.repository.StudentRepository;
+import com.borisavz.fakultetback.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.borisavz.fakultetback.security.AuthHelper.authUser;
@@ -33,6 +31,9 @@ public class KonkursService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ObavestenjeRepository obavestenjeRepository;
 
     public List<Konkurs> getKonkursi() {
         return konkursRepository.getAktivniKonkursi();
@@ -140,6 +141,16 @@ public class KonkursService {
                 prijavaKonkurs.setStatusPrijave(StatusPrijave.PRIMLJEN_UPIS);
 
                 prijavaKonkursRepository.save(prijavaKonkurs);
+
+                Obavestenje obavestenje = Obavestenje.builder()
+                        .student(prijavaKonkurs.getStudent())
+                        .datumKreiranja(new Date())
+                        //.tekst("Cestitamo na upisu! Jos uvek nije kasno da odustanete i sacuvate svoje mentalno zdravlje.")
+                        .tekst("Izasli su rezultati konkursa!")
+                        .link("")
+                        .build();
+
+                obavestenjeRepository.save(obavestenje);
             }
         }
     }
