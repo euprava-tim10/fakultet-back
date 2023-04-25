@@ -17,4 +17,8 @@ public interface ObavestenjeRepository extends JpaRepository<Obavestenje, Long> 
             "WHERE o.student.id = ?1 " +
             "AND o.datumKreiranja > ?2")
     int getBrojNeprocitanih(long studentId, Date procitano);
+
+    @Query("SELECT COUNT(o) FROM Obavestenje o " +
+            "WHERE o.student.id = ?1")
+    int getBrojNotifikacija(long studentId);
 }
