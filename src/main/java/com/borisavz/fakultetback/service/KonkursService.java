@@ -1,5 +1,6 @@
 package com.borisavz.fakultetback.service;
 
+import com.borisavz.fakultetback.dto.DiplomaResponseDTO;
 import com.borisavz.fakultetback.entity.*;
 import com.borisavz.fakultetback.enums.NivoStudija;
 import com.borisavz.fakultetback.enums.StatusKonkursa;
@@ -7,12 +8,16 @@ import com.borisavz.fakultetback.enums.StatusPrijave;
 import com.borisavz.fakultetback.exception.core.NotAllowedException;
 import com.borisavz.fakultetback.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.borisavz.fakultetback.security.AuthHelper.authUser;
 
@@ -34,6 +39,9 @@ public class KonkursService {
 
     @Autowired
     private ObavestenjeRepository obavestenjeRepository;
+
+    @Value("${skola.url}")
+    private String skolaUrl;
 
     public List<Konkurs> getKonkursi() {
         return konkursRepository.getAktivniKonkursi();
@@ -85,8 +93,19 @@ public class KonkursService {
 
         switch (smer.getNivoStudija()) {
             case OSNOVNE:
-                //TODO: provera srednja skola, prosek
-                prijavaKonkurs.setProsek(5);
+                String diplomaUrl = skolaUrl + "/" + authUser().getUsername() + "/diploma/SREDNJA";
+                RestTemplate restTemplate = new RestTemplate();
+
+                DiplomaResponseDTO diploma = restTemplate.getForObject(diplomaUrl, DiplomaResponseDTO.class);
+
+                Map<Integer, Double> gpa = diploma.getGpa();
+
+                if(gpa.size() != 4)
+                    throw new NotAllowedException();
+
+                float prosek = (float) ((gpa.get(1) + gpa.get(2) + gpa.get(3) + gpa.get(4)) / 4);
+
+                prijavaKonkurs.setProsek(prosek);
                 break;
             case MASTER:
                 StatusStudija zavrseneOsnovne = zavrseniNivoSaNajvecimProsekom(student.getStatusStudija(), NivoStudija.OSNOVNE);
