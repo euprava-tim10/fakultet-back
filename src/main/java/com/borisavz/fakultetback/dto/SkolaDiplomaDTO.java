@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Builder
-public class DiplomaResponseDTO {
+public class SkolaDiplomaDTO {
 
     private String firstName;
     private String lastName;

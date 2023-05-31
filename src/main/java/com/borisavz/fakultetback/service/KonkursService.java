@@ -1,6 +1,6 @@
 package com.borisavz.fakultetback.service;
 
-import com.borisavz.fakultetback.dto.DiplomaResponseDTO;
+import com.borisavz.fakultetback.dto.SkolaDiplomaDTO;
 import com.borisavz.fakultetback.entity.*;
 import com.borisavz.fakultetback.enums.NivoStudija;
 import com.borisavz.fakultetback.enums.StatusKonkursa;
@@ -10,7 +10,6 @@ import com.borisavz.fakultetback.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
@@ -96,7 +95,7 @@ public class KonkursService {
                 String diplomaUrl = skolaUrl + "/" + authUser().getUsername() + "/diploma/SREDNJA";
                 RestTemplate restTemplate = new RestTemplate();
 
-                DiplomaResponseDTO diploma = restTemplate.getForObject(diplomaUrl, DiplomaResponseDTO.class);
+                SkolaDiplomaDTO diploma = restTemplate.getForObject(diplomaUrl, SkolaDiplomaDTO.class);
 
                 Map<Integer, Double> gpa = diploma.getGpa();
 

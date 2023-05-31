@@ -15,6 +15,8 @@ public class Student {
     @Id
     @GeneratedValue
     private long id;
+
+    private String jmbg;
     private String ime;
     private String prezime;
 
