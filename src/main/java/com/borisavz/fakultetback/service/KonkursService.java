@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -176,6 +177,7 @@ public class KonkursService {
         Konkurs konkurs = konkursRepository.getById(konkursId);
 
         konkurs.setStatusKonkursa(StatusKonkursa.ZATVOREN);
+        konkurs.setDatumOkoncavanja(LocalDate.now());
 
         konkursRepository.save(konkurs);
     }
