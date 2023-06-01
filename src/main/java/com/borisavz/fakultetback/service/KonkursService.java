@@ -93,7 +93,7 @@ public class KonkursService {
 
         switch (smer.getNivoStudija()) {
             case OSNOVNE:
-                String diplomaUrl = skolaUrl + "/" + authUser().getUsername() + "/diploma/SREDNJA";
+                String diplomaUrl = skolaUrl + "/api/ucenici/" + authUser().getUsername() + "/diploma/SREDNJA";
                 RestTemplate restTemplate = new RestTemplate();
 
                 SkolaDiplomaDTO diploma = restTemplate.getForObject(diplomaUrl, SkolaDiplomaDTO.class);
