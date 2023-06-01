@@ -26,7 +26,6 @@ DELETE FROM konkurs_kvote;
 --brisanje sadrzaja ostalih tabela
 DELETE FROM fakultet.admin_fakulteta;
 DELETE FROM fakultet.fakultet;
-DELETE FROM fakultet.hibernate_sequence;
 DELETE FROM fakultet.konkurs;
 DELETE FROM fakultet.kvota_smer;
 DELETE FROM fakultet.obavestenje;
