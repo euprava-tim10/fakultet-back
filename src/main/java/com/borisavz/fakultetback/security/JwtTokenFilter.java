@@ -30,7 +30,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // Get authorization header and validate
         final String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (isEmpty(token)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            chain.doFilter(request, response);
             return;
         }
 

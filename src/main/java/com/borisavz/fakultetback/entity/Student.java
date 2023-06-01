@@ -1,6 +1,7 @@
 package com.borisavz.fakultetback.entity;
 
 import com.borisavz.fakultetback.enums.NivoStudija;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,8 @@ public class Student {
     private String ime;
     private String prezime;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<StatusStudija> statusStudija;
 
     public NivoStudija getMaxNivoStudija() {

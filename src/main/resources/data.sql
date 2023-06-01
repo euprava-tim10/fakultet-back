@@ -17,9 +17,6 @@ SET fakultet_id = NULL;
 UPDATE status_studija
 SET student_id = NULL, smer_id = NULL;
 
-UPDATE student_status_studija
-SET student_id = NULL, status_studija_id = NULL;
-
 --brisanje sadrzaja N-N tabela jer je FK NOT NULL
 DELETE FROM konkurs_kvote;
 
@@ -34,7 +31,6 @@ DELETE FROM fakultet.procitano_obavestenje;
 DELETE FROM fakultet.smer;
 DELETE FROM fakultet.status_studija;
 DELETE FROM fakultet.student;
-DELETE FROM fakultet.student_status_studija;
 
 --insert test vrednosti
 INSERT INTO fakultet.admin_fakulteta (id,ime,prezime) VALUES
@@ -47,4 +43,7 @@ INSERT INTO fakultet.smer (id,naziv,nivo_studija,oblast,fakultet_id) VALUES
      (2,'E2',0,2,1),
      (3,'pravo',0,0,2);
 INSERT INTO fakultet.student (id,ime,jmbg,prezime) VALUES
-     (2,'Gagi','222','Gagi');
+     (2,'Petar','123412341234','Petrovic');
+
+INSERT INTO fakultet.status_studija(id, datum_upisa, datum_zavrsetka, prosek, smer_id, student_id)
+VALUES(7, '2023-06-01', '2023-07-01', 8.5, 1, 2);
