@@ -18,6 +18,7 @@ public class FakultetDiplomaDTO {
     private String jmbg;
     private String facultyName;
     private String courseName;
+    private String profession;
     private String level;
     private Double gpa;
     private LocalDate date;
@@ -29,6 +30,7 @@ public class FakultetDiplomaDTO {
                 .jmbg(statusStudija.getStudent().getJmbg())
                 .facultyName(statusStudija.getSmer().getFakultet().getNaziv())
                 .courseName(statusStudija.getSmer().getNaziv())
+                .profession(statusStudija.getSmer().getOblast().toString())
                 .level(statusStudija.getSmer().getNivoStudija().toString())
                 .gpa((double) statusStudija.getProsek())
                 .date(statusStudija.getDatumZavrsetka())
