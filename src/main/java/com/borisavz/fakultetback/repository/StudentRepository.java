@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    @Query("SELECT s FROM Student s" +
+    @Query("SELECT DISTINCT s FROM Student s" +
             " INNER JOIN s.statusStudija st" +
             " WHERE st.smer.fakultet.id = ?1")
     List<Student> getStudentiByFakultet(long fakultetId);

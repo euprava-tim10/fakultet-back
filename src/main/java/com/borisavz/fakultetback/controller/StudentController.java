@@ -24,6 +24,11 @@ public class StudentController {
         return studentService.getStudent(id);
     }
 
+    @GetMapping("/{id}/statusiStudija")
+    public List<StatusStudija> getStudentStatusiStudija(@PathVariable long id) {
+        return studentService.getStudentStatusiStudija(id);
+    }
+
     @PutMapping("/{studentId}/statusiStudija/{statusStudijaId}/zavrsi")
     @IsAdmin
     public void zavrsiStudije(

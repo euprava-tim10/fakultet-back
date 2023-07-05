@@ -42,7 +42,10 @@ public class StudentService {
         return studentRepository.getById(id);
     }
 
-    //TODO: security checks
+    public List<StatusStudija> getStudentStatusiStudija(long id) {
+        return statusStudijaRepository.getStatusStudijaByStudentId(id);
+    }
+
     public void zavrsiStudije(long studentId, long statusStudijaId, ZavrsiStudijeDTO zavrsiStudijeDTO) {
         StatusStudija oldStatusStudija = statusStudijaRepository.getById(statusStudijaId);
 

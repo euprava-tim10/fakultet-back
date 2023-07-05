@@ -10,4 +10,7 @@ public interface StatusStudijaRepository extends JpaRepository<StatusStudija, Lo
 
     @Query("SELECT s FROM StatusStudija s WHERE s.student.jmbg = ?1 AND s.datumZavrsetka IS NOT NULL")
     public List<StatusStudija> getDiplomeByStudentJmbg(String jmbg);
+
+    @Query("SELECT s FROM StatusStudija s WHERE s.student.id = ?1")
+    public List<StatusStudija> getStatusStudijaByStudentId(long studentId);
 }

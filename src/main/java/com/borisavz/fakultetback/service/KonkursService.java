@@ -63,8 +63,6 @@ public class KonkursService {
 
         List<Smer> dozvoljeniSmerovi = new ArrayList<>();
 
-        //TODO: srednja provera
-
         if(maxNivo == null) {
             for(KvotaSmer kvotaSmer : konkurs.getKvote()) {
                 if(NivoStudija.OSNOVNE.equals(kvotaSmer.getSmer().getNivoStudija()))
@@ -81,7 +79,6 @@ public class KonkursService {
     }
 
     public long kreirajPrijavu(long konkursId, PrijavaKonkurs prijavaKonkurs) {
-        //TODO: ne sme dve prijave na isti konkurs!
         Student student = studentRepository.getById(authUser().getId());
         Konkurs konkurs = konkursRepository.getById(konkursId);
 
